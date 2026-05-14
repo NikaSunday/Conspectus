@@ -5,26 +5,36 @@ def is_valid(num):
         return 0 < int(num) < 101
     return False
 
-def is_equal(num):
-    if num == x:
+def is_equal(num, target):
+    if num == target:
         print('Вы угадали, поздравляем!')
-    elif num > x:
+        return True
+    elif num > target:
         print('Ваше число больше загаданного, попробуйте еще разок')
+        return False
     else:
         print('Ваше число меньше загаданного, попробуйте еще разок')
+        return False
 
-while True:
-    print('Добро пожаловать в числовую угадайку. Сыграем?')
+def play_game(target):
+    while True:
+        n = input('Введите число от 1 до 100 \n')
+        if not is_valid(n):
+            print('А может быть все-таки введем целое число от 1 до 100?')
+            continue
+        if is_equal(int(n), target):
+            return True
+
+
+print('Добро пожаловать в числовую угадайку. Сыграем?')
+game_finish = False
+
+while not game_finish:
     enter = input('Введите "да" или "нет" \n')
     if enter == 'нет':
         print('Всего хорошего!')
-        break
+        game_finish = True
     else:
         x = random.randint(1, 100)
-        while True:
-            n = input('Введите число от 1 до 100 \n')
-            while not is_valid(n):
-                print('А может быть все-таки введем целое число от 1 до 100?')
-                n = input('Введите число от 1 до 100 \n')
-            n = int(n)
-            is_equal(n)
+        play_game(x)
+        print('Продолжим?')
